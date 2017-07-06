@@ -1,5 +1,12 @@
 class UsersController  < ApplicationController
 
+	before_action :set_user, only: [:edit, :update, :show]
+ 
+  def index
+  	@users = User.paginate(page: params[:page], per_page: 5)
+
+  end
+
 	def new
 		@user= User.new
 	end	
@@ -17,12 +24,11 @@ class UsersController  < ApplicationController
 
 	def show
     @user = User.find(params[:id])
-    
-
-	end	
+    @user_paginate = @user.articles.paginate(page: params[:page], per_page: 5)
+  end	
 
 	def edit
-		@user = User.find(params[:id])
+		 
   end
 
 	def update
@@ -33,19 +39,16 @@ class UsersController  < ApplicationController
 			redirect_to articles_path
 		else
 		  render 'edit'	
-	end  
-
-	end	
+		end  
+	end 
+ 
 
 	private
-	  def set_article
-      @article = Article.find(params[:id])
+	  def set_user
+	  @user = User.find(params[:id])
 	  end
 	  	
 	  def user_params
 	  	params.require(:user).permit(:username, :email, :password)
-	  end	
-
-
+	  end
 end	
-

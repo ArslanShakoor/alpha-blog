@@ -1,0 +1,43 @@
+  
+
+<%= form_for :session , url: login_path do |f| %>
+<div class="well col-md-offset-4 col-md-4 ">
+  <div class= "row">
+     
+    <div class="form-group">   
+  		 
+  		<div>
+  		  <%= f.label :email %>
+  		</div>
+  		<div>
+  		  <%= f.email_field :email, class: "form-control", placeholder:"email" %>
+  		</div>
+    </div>		
+    	
+  </div>
+  <p></p>		
+   
+  <div class= "row">
+     
+    <div class="form-group"> 
+     <div>      
+      <%= f.label :password %> 
+     </div>
+     <div>   
+      <%= f.password_field :password, class: "form-control", autocomplete: "off" %>
+     </div> 
+    </div>
+    
+  </div>
+  
+  <p></p>
+  <div class="row">  
+    <div align="center">			
+  	<%= f.submit "Log In" , class: "btn btn-primary btn-md" %>
+    </div>	
+  </div>	
+</div>  
+<% end %>
+
+
+ 
