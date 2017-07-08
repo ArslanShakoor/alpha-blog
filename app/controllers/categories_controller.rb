@@ -7,6 +7,7 @@ class CategoriesController < ApplicationController
     @category = Category.new
 	end	
 
+
 	def create
 		@category = Category.new(category_params)
 		if @category.save
@@ -15,9 +16,24 @@ class CategoriesController < ApplicationController
 
 		else
 		  render 'new'
-	end  	
+	  end  	
+  end	
 
-	end	
+  def edit
+  	@category = Category.find(params[:id])
+
+  end
+  
+  def update
+   @category = Category.find(params[:id])
+   if @category.update(category_params)
+			flash[:success] = "Category was updated successfull"
+			redirect_to categories_path
+
+		else
+		  render 'edit'
+	  end  	
+  end 	
 
 	def show
 		@category = Category.find(params[:id])
@@ -39,7 +55,7 @@ class CategoriesController < ApplicationController
 	  end
 
 	  def require_admin
-      if logged_in? || (logged_in && !current_user.admin?)
+      if !logged_in? || (logged_in? && !current_user.admin?)
       	flash[:danger] = "Only admin user can perform this action"
       	redirect_to articles_path
       end	
